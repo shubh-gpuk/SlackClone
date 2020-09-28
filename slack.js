@@ -2,6 +2,8 @@ const express = require("express");
 const http = require("http")
 const socketio = require("socket.io");
 
+const namespaces = require('./data/namespaces.js');
+
 const app = express();
 app.use(express.static(__dirname + '/public'));
 
