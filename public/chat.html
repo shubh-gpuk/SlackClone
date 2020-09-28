@@ -1,0 +1,89 @@
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<!-- Custom Stylesheet -->
+<link rel="stylesheet" type="text/css" href="./css/styles.css">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-1 namespaces">
+            <!-- JS will update this dynamically!! -->
+        </div>
+        <div class="col-sm-2 rooms">
+            <h3>Rooms</h3>
+            <ul class="room-list">
+                <!-- JS will update this dynamically!! -->
+            </ul>
+        </div>
+        <div class="chat-panel col-sm-9">
+            <div class="room-header row col-6">
+                <div class="col-sm-3"><span class="curr-room-text">Current Room</span> <span class="curr-room-num-users">Users <span class="glyphicon glyphicon-user"></span></span></div>
+                <div class="col-sm-3 search pull-right">
+                        <span class="glyphicon glyphicon-search"></span>
+                    <input type="text" id="search-box" placeholder="Search" />
+                </div>
+            </div> 
+            <div class="message-form">
+                <form id="user-input">
+                    <div class="col-sm-12">
+                        <input id="user-message" type="text" placeholder="Enter your message" />
+                    </div>
+                    <!-- <div class="col-sm-2">
+                        <input class="btn btn-primary" type="submit" value="send" />
+                    </div> -->
+                </form>
+            </div>
+            <ul id="messages" class="col-sm-12">
+                <li>
+                    <div class="user-image">
+                        <img src="https://via.placeholder.com/30" />
+                    </div>
+                    <div class="user-message">
+                        <div class="user-name-time">rbunch <span>1:25 pm</span></div>
+                        <div class="message-text">I went running today.</div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="user-image">
+                        <img src="https://via.placeholder.com/30" />
+                    </div>
+                    <div class="user-message">
+                        <div class="user-name-time">rbunch <span>2:25 pm</span></div>
+                        <div class="message-text">I'm getting my tires changed this afternoon.</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="user-image">
+                        <img src="https://via.placeholder.com/30" />
+                    </div>
+                    <div class="user-message">
+                        <div class="user-name-time">rbunch <span>2:29 pm</span></div>
+                        <div class="message-text">I like history.</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="user-image">
+                        <img src="https://via.placeholder.com/30" />
+                    </div>
+                    <div class="user-message">
+                        <div class="user-name-time">rbunch <span>2:59 pm</span></div>
+                        <div class="message-text">What day is tomorrow?.</div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/scripts.js"></script>
+<!-- <script src="/joinNs.js"></script>
+<script src="/joinRoom.js"></script> -->
+
