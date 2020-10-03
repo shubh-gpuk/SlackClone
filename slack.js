@@ -12,19 +12,21 @@ const io = socketio(httpServer);
 
 //io.on == io.of("/").on
 io.on('connection', (socket) => {
-    console.log("Started root socket connection");
-    socket.emit('messageFromServer', {"data" : "Hello from server!"});
-    socket.on('messageFromClient', (dataFromClient) => {
-        console.log("Client : " + socket.id);
-        console.log(dataFromClient);
-    })
-    socket.join('level1');      //Join a room
-    socket.to('level1').emit('joined', `${socket.id} says I joined the room level1`);
+    //send array to client containing namespaces' img and endpoint
+    const nsData = namespaces.map((ns) => {
+        return {
+            img : ns.img,
+            endpoint : ns.endpoint
+        }
+    });
+    console.log(nsData);
+    socket.emit('nsDataFromServer', nsData);
 });
 
-io.of("/admin").on('connection', (socket) => {
-    console.log("Client : " + socket.ID + "connected to /admin namespace");
-    io.of("/admin").emit('welcome', "Welcome to the admin namespace");
+namespaces.forEach((namespace) => {
+    io.of(namespace.endpoint).on('connection', (socket) => {
+        console.log(`Client : ${socket.id} connected to ${namespace.endpoint} namespace`);
+    })
 })
 
 httpServer.listen(9999);
