@@ -1,5 +1,6 @@
 const socket = io("http://localhost:9999");
 const socket2 = io("http://localhost:9999/admin");
+const socket3 = io("http://localhost:9999/castlevania")
 
 socket.on('messageFromServer', (dataFromServer) => {
     console.log(dataFromServer);

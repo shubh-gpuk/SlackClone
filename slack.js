@@ -22,9 +22,10 @@ io.on('connection', (socket) => {
     socket.to('level1').emit('joined', `${socket.id} says I joined the room level1`);
 });
 
-io.of("/admin").on('connection', (socket) => {
-    console.log("Client : " + socket.ID + "connected to /admin namespace");
-    io.of("/admin").emit('welcome', "Welcome to the admin namespace");
+namespaces.forEach((namespace) => {
+    io.of(namespace.endpoint).on('connection', (socket) => {
+        console.log(`Client : ${socket.id} connected to ${namespace.endpoint} namespace`);
+    })
 })
 
 httpServer.listen(9999);
