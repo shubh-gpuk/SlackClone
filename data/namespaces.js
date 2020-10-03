@@ -11,7 +11,7 @@ let namespaces = [];
 namespaces.push(netflix, castlevania, coding);
 
 //Add Rooms
-netflix.addRoom(new Room(0, 'suscription', 'netflix'));
+netflix.addRoom(new Room(0, 'subscription', 'netflix'));
 netflix.addRoom(new Room(1, 'media', 'netflix'));
 netflix.addRoom(new Room(2, 'features', 'netflix'));
 
