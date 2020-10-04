@@ -19,13 +19,16 @@ io.on('connection', (socket) => {
             endpoint : ns.endpoint
         }
     });
-    console.log(nsData);
+    //console.log(nsData);
     socket.emit('nsDataFromServer', nsData);
 });
 
 namespaces.forEach((namespace) => {
     io.of(namespace.endpoint).on('connection', (socket) => {
         console.log(`Client : ${socket.id} connected to ${namespace.endpoint} namespace`);
+
+        //Send rooms info to the client
+        socket.emit('nsRooms', namespace.rooms);
     })
 })
 
