@@ -15,5 +15,17 @@ function joinNs(endpoint){
                 console.log('Clicked on ' + event.target.innerText);
             });
         });
+
+        //Join top room -- will be made general later
+        const topRoom = document.querySelector(".room");
+        joinRoom(topRoom.innerText);
+        console.log("room : " + topRoom.innerText);
     });
+
+    $("#user-input").on('submit', (event) => {
+        event.preventDefault();
+        console.log("Form Submitted!");
+        const message = document.querySelector("#user-message").value;
+        nsSocket.emit("newMessageToServer", {"text" : message});
+    })
 }

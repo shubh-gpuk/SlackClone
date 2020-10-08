@@ -24,12 +24,36 @@ io.on('connection', (socket) => {
 });
 
 namespaces.forEach((namespace) => {
-    io.of(namespace.endpoint).on('connection', (socket) => {
-        console.log(`Client : ${socket.id} connected to ${namespace.endpoint} namespace`);
+    io.of(namespace.endpoint).on('connection', (nsSocket) => {
+        console.log(`Client : ${nsSocket.id} connected to ${namespace.endpoint} namespace`);
 
         //Send rooms info to the client
-        socket.emit('nsRooms', namespace.rooms);
-    })
+        nsSocket.emit('nsRooms', namespace.rooms);
+
+        //Handle client to join a room
+        nsSocket.on('joinRoomEvent', (roomName, numberOfUsersCallback) => {
+            nsSocket.join(roomName);
+
+            
+            io.of(namespace.endpoint).in(roomName).clients((error, clients) => {
+                numberOfUsersCallback(clients.length);
+            });
+        })
+
+        //Broadcast messages to all members in the room
+        nsSocket.on('newMessageToServer', (msg) => {
+            const fullMsg = {
+                "text" : msg.text,
+                "timestamp" : Date.now(),
+                "avatar" : "https://via.placeholder.com/30",
+                "username" : "rbunch"
+            };
+            console.log(fullMsg)
+            const rooms = Object.keys(nsSocket.rooms);
+            const topRoom = rooms[1]
+            io.of(namespace.endpoint).to(topRoom).emit('roomMessage', fullMsg);
+        });
+    });
 })
 
 httpServer.listen(9999);

@@ -1,4 +1,5 @@
 const socket = io("http://localhost:9999");
+let nsSocket = "";
 
 socket.on('nsDataFromServer', (nsData) => {
     //update namespaces section in DOM
