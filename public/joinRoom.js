@@ -1,7 +1,7 @@
 function joinRoom(roomName){
 
     nsSocket.emit('joinRoomEvent', roomName, (numberOfUsers) => {
-        $(".curr-room-num-users").html(`${numberOfUsers} <span class="glyphicon glyphicon-user"></span>`)
+        $(".curr-room-num-users").html(`${numberOfUsers} <span class="glyphicon glyphicon-user"></span>`);
         console.log(numberOfUsers);
     });
 
@@ -11,8 +11,10 @@ function joinRoom(roomName){
     })
 
     nsSocket.on('roomHistory', (roomObject) => {
-        console.log("loveu");
         console.log(roomObject);
+        roomObject.history.forEach(fullMsg => {
+            $('#messages').append(fullHTML(fullMsg));
+        });
     })
 } 
 
