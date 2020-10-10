@@ -12,9 +12,14 @@ function joinRoom(roomName){
 
     nsSocket.on('roomHistory', (roomObject) => {
         console.log(roomObject);
+        $('#messages').html("");
         roomObject.history.forEach(fullMsg => {
             $('#messages').append(fullHTML(fullMsg));
         });
+
+        //Scroll to bottom on connecting
+        const messagesUI = document.querySelector("#messages");
+        messagesUI.scrollTo(0, messagesUI.scrollHeight);
     })
 } 
 
