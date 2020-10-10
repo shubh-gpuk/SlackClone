@@ -5,9 +5,14 @@ function joinRoom(roomName){
         console.log(numberOfUsers);
     });
 
-    nsSocket.on('roomMessage', (fullMsg) => {
-        console.log(fullMsg);
+    nsSocket.on('roomMessage', (fullMsg, roomObject) => {
+        console.log(roomObject);
         $('#messages').append(fullHTML(fullMsg));
+    })
+
+    nsSocket.on('roomHistory', (roomObject) => {
+        console.log("loveu");
+        console.log(roomObject);
     })
 } 
 

@@ -34,11 +34,17 @@ namespaces.forEach((namespace) => {
         nsSocket.on('joinRoomEvent', (roomName, numberOfUsersCallback) => {
             nsSocket.join(roomName);
 
-            
+            //Number of clients connected to the room
             io.of(namespace.endpoint).in(roomName).clients((error, clients) => {
                 numberOfUsersCallback(clients.length);
             });
-        })
+
+            //Send message and roomObject (which contains room history) on an event
+            const roomObject = namespace.rooms.find((room) => {
+                return room.roomTitle === roomName
+            })
+            io.of(namespace.endpoint).to(roomName).emit('roomHistory', roomObject);
+        });
 
         //Broadcast messages to all members in the room
         nsSocket.on('newMessageToServer', (msg) => {
@@ -51,7 +57,16 @@ namespaces.forEach((namespace) => {
             console.log(fullMsg)
             const rooms = Object.keys(nsSocket.rooms);
             const topRoom = rooms[1]
-            io.of(namespace.endpoint).to(topRoom).emit('roomMessage', fullMsg);
+
+            //Save message in history
+            const roomObject = namespace.rooms.find((room) => {
+                return room.roomTitle === topRoom
+            });
+            roomObject.addMessage(fullMsg);
+            console.log(roomObject);
+            
+            //Send message and roomObject (which contains room history) on an event
+            io.of(namespace.endpoint).to(topRoom).emit('roomMessage', fullMsg, roomObject);
         });
     });
 })
