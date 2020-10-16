@@ -1,8 +1,9 @@
 function joinRoom(roomName){
 
+    //Join the room
     nsSocket.emit('joinRoomEvent', roomName, (numberOfUsers) => {
-        $(".curr-room-num-users").html(`${numberOfUsers} <span class="glyphicon glyphicon-user"></span>`);
-        console.log(numberOfUsers);
+        // $(".curr-room-num-users").html(`${numberOfUsers} <span class="glyphicon glyphicon-user"></span>`);
+        // console.log(numberOfUsers);
     });
 
     nsSocket.on('roomMessage', (fullMsg, roomObject) => {
@@ -20,7 +21,12 @@ function joinRoom(roomName){
         //Scroll to bottom on connecting
         const messagesUI = document.querySelector("#messages");
         messagesUI.scrollTo(0, messagesUI.scrollHeight);
-    })
+    });
+
+    nsSocket.on('updateRoomHeader', (roomName, numberOfUsers) => {
+        $(".curr-room-text").text(`${roomName}`);
+        $(".curr-room-num-users").html(`${numberOfUsers} <span class="glyphicon glyphicon-user"></span>`);
+    });
 } 
 
 //Construct proper HTML to update DOM

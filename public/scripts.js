@@ -8,14 +8,14 @@ socket.on('nsDataFromServer', (nsData) => {
         $(".namespaces").append(`<div class="namespace" ns=${ns.endpoint}><img src=${ns.img}></div>`)
     });
 
+    //Join the namespace when user clicks on it
     Array.from($(".namespace")).forEach((elem) => {
         elem.addEventListener('click', (event) => {
             const nsEndpoint = elem.getAttribute('ns');
-            console.log(`Goto ${nsEndpoint}`);
+            joinNs(nsEndpoint);
         })
     });
-    
-    joinNs('/netflix');
+
 });
 
 

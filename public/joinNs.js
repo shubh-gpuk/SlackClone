@@ -1,5 +1,14 @@
 // join namespace and get rooms of that namespace
 function joinNs(endpoint){
+    //If nsSocket is already existing (i.e. the client is connected to a namespace)
+    if(nsSocket != ""){
+        //disconnect from namespace
+        nsSocket.close();
+
+        //Also remove existing event listener on chat submit button
+        $("#user-input").off('submit', chatSubmitListener);
+    }
+
     nsSocket = io(`http://localhost:9999${endpoint}`);
     nsSocket.on('nsRooms', (rooms) => {
         console.log(rooms);
@@ -22,10 +31,12 @@ function joinNs(endpoint){
         console.log("room : " + topRoom.innerText);
     });
 
-    $("#user-input").on('submit', (event) => {
-        event.preventDefault();
-        console.log("Form Submitted!");
-        const message = document.querySelector("#user-message").value;
-        nsSocket.emit("newMessageToServer", {"text" : message});
-    })
+    $("#user-input").on('submit', chatSubmitListener);
+}
+
+function chatSubmitListener(event){
+    event.preventDefault();
+    console.log("Form Submitted!");
+    const message = document.querySelector("#user-message").value;
+    nsSocket.emit("newMessageToServer", {"text" : message});
 }
