@@ -1,1 +1,1 @@
-Creating a slack clone using socket.io
+A slack clone using socket.io
